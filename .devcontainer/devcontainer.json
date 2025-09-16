@@ -1,0 +1,50 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/ubuntu:latest",
+	"features": {
+		"ghcr.io/devcontainers-extra/features/aws-cdk:latest": {},
+		"ghcr.io/devcontainers/features/aws-cli:latest": {},
+		"ghcr.io/devcontainers/features/github-cli:latest": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:latest": {},
+		"ghcr.io/mikaello/devcontainer-features/modern-shell-utils:latest": {},
+		"ghcr.io/jajera/features/amazon-q-cli:1": {},
+		"ghcr.io/jsburckhardt/devcontainer-features/uv:1": {},
+		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
+		"ghcr.io/devcontainers-extra/features/apt-packages:1": {
+			"packages": "tmux" // "Comma separated list of packages to install"
+		},
+		"ghcr.io/devcontainers/features/python:latest": {
+			"version": "3.13",
+			"installJupyterlab": true
+		}
+	},
+	// Mount the host's ~/.aws folder into the container.
+	// This may be overridden in a Codespace by a dotfile repo.
+	"mounts": [
+		"source=${env:HOME}${env:USERPROFILE}/.aws,target=/home/node/.aws,type=bind"
+	],
+	// Set Envs. The chosen AWS_PROFILE should be found in the above mount or dotfile repo
+	"remoteEnv": {
+		"AWS_PROFILE": "star43"
+	},
+	"postCreateCommand": ".devcontainer/postCreateCommand.sh",
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {
+				"redhat.telemetry.enabled": false,
+				"aws.telemetry": false
+			},
+			"extensions": [
+				"AmazonWebServices.aws-toolkit-vscode",
+				"AmazonWebServices.amazon-q-vscode",
+				"aws-scripting-guy.cform",
+				"DavidAnson.vscode-markdownlint",
+				"docker.docker",
+				"github.vscode-github-actions",
+				"GitHub.vscode-pull-request-github",
+				"mechatroner.rainbow-csv",
+				"ms-python.autopep8"
+			]
+		}
+	}
+}
